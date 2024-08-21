@@ -234,6 +234,14 @@ namespace Robust.Client.Graphics.Clyde
             vertexSource = versionHeader + "#define VERTEX_SHADER\n" + lib + vertexSource;
             fragmentSource = versionHeader + "#define FRAGMENT_SHADER\n" + lib + fragmentSource;
 
+            if (name is { })
+            {
+                var strippedName = Path.GetFileName(name);
+                Directory.CreateDirectory("ShadersDump");
+                File.WriteAllText(Path.Combine("ShadersDump", $"{strippedName}.vert.glsl"), vertexSource);
+                File.WriteAllText(Path.Combine("ShadersDump", $"{strippedName}.frag.glsl"), fragmentSource);
+            }
+
             try
             {
                 try
